@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Link directly to your official production sitemap
+Sitemap: https://makconsultantuae.com/sitemap.xml
