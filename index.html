@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/MAKLOGO.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Updated accurate corporate title matching the UAE consultancy scope -->
-    <title>MAK Consultant | Premium Corporate Tax, Accounting & Audit Services UAE</title>
-  </head>
-  <body class="bg-[#061729]">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+<!-- Inside your index.html <head> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- 1. The Title Tag (keep this concise) -->
+  <title>MAK Consultant | Professional Corporate Solutions</title>
+  
+  <!-- 2. Open Graph Site Name (helps Facebook/LinkedIn/Google) -->
+  <meta property="og:site_name" content="MAK Consultant" />
+
+  <!-- 3. JSON-LD Structured Data (The most important step for Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MAK Consultant",
+    "url": "https://makconsultantuae.com/"
+  }
+  </script>
+</head>

@@ -1,96 +1,51 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import AudioPlayer from './AudioPlayer';
 
-const PremiumHero = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
-
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
-    
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch((err) => console.log("Audio play interrupted:", err));
-    }
-    setIsPlaying(!isPlaying);
-  };
-
+export default function PremiumHero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 pt-20">
-      
-      {/* Background Stitched Video Loop */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-35 filter brightness-75 scale-105"
-          src="/assets/premium-dubai-finance.mp4"
-        />
-        {/* Deep Slate Linear Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/50" />
-      </div>
-
-      {/* Hero Content Overlay */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+    <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 bg-[#0B192C]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-          UAE Corporate Tax & VAT Advisors
-        </span>
-
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-          Strategic Clarity in an <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
-            Evolving Fiscal Landscape
+        {/* Left Column: Text & Premium Typography Content */}
+        <div className="space-y-8 z-10">
+          <span className="text-sm uppercase tracking-widest text-[#D4AF37] font-bold border-l-2 border-[#D4AF37] pl-3">
+            Welcome to MAK Consultant
           </span>
-        </h1>
-
-        <p className="text-base sm:text-lg text-slate-300 max-w-2xl mb-10 leading-relaxed">
-          We work directly with corporate leaders across the Emirates to navigate structural tax transitions, protect margins, and implement absolute financial compliance.
-        </p>
-
-        {/* Action Controls Frame */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
           
-          {/* Audio Controller Interaction Layout */}
-          <button
-            onClick={toggleAudio}
-            className={`inline-flex items-center justify-center gap-3 px-6 py-3.5 text-base font-semibold rounded-xl border transition-all duration-300 backdrop-blur-sm group shadow-xl ${
-              isPlaying
-                ? 'bg-blue-600/20 text-blue-400 border-blue-500/40 shadow-blue-950/40 animate-pulse'
-                : 'bg-white/5 text-white border-white/10 hover:bg-white/10 hover:border-white/20 shadow-black/40'
-            }`}
-          >
-            {/* Audio State Icon Vector */}
-            <div className="relative flex items-center justify-center w-5 h-5">
-              {isPlaying ? (
-                <div className="flex items-end gap-[2px] h-3.5">
-                  <span className="w-[3px] bg-blue-400 animate-[bounce_0.8s_infinite_100ms] h-full" />
-                  <span className="w-[3px] bg-blue-400 animate-[bounce_0.8s_infinite_300ms] h-1/2" />
-                  <span className="w-[3px] bg-blue-400 animate-[bounce_0.8s_infinite_500ms] h-3/4" />
-                </div>
-              ) : (
-                <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-                </svg>
-              )}
-            </div>
-            <span>{isPlaying ? 'Pause Intro Story' : 'Hear Our Story (30s Voiceover)'}</span>
-          </button>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white uppercase leading-tight">
+            YOUR TRUSTED ACCOUNTING, TAX & BUSINESS ADVISORY PARTNER IN THE UAE
+          </h1>
+          
+          {/* CRITICAL CHANGE: Premium Tagline Styling Applied Here */}
+          <p className="text-2xl md:text-3xl font-serif italic font-medium bg-gradient-to-r from-[#D4AF37] via-[#E5A93C] to-[#F9F0D8] bg-clip-text text-transparent tracking-wide leading-relaxed">
+            "Numbers with Integrity, Growth with Strategy."
+          </p>
 
-          {/* Hidden HTML5 Native Audio Anchor */}
-          <audio
-            ref={audioRef}
-            src="/assets/audio-intro.mp3"
-            onEnded={() => setIsPlaying(false)}
-          />
-
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-4">
+            <Link to="/contact" className="bg-[#D4AF37] text-[#0B192C] px-8 py-4 text-sm uppercase tracking-widest font-bold rounded shadow-lg hover:bg-[#E5A93C] hover:scale-105 transition-all">
+              Consult With Us
+            </Link>
+            <AudioPlayer />
+          </div>
         </div>
+
+        {/* Right Column: Dedicated Video Frame */}
+        <div className="relative rounded-2xl overflow-hidden border border-[#D4AF37]/30 shadow-[0_0_40px_rgba(212,175,55,0.15)] aspect-[4/3] lg:aspect-square">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/premium-dubai-finance.mp4" type="video/mp4" />
+          </video>
+          {/* Subtle inner overlay for luxury feel */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#0B192C]/40 to-transparent"></div>
+        </div>
+        
       </div>
     </section>
   );
-};
-
-export default PremiumHero;
+}

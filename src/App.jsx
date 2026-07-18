@@ -1,108 +1,60 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Home from './pages/Home';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
 
-const SECTIONS = ['hero', 'services', 'about', 'why-us', 'ceo', 'contact'];
+// Scroll Restoration Hook
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+// Reusable WhatsApp SVG Icon Component
+const WhatsAppIcon = () => (
+  <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.22 5.22 0 00-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('hero');
-  const isLocked = useRef(false);
-  const touchStartY = useRef(0);
-
-  const currentIndex = SECTIONS.indexOf(activeSection);
-
-  const navigateToSection = (index) => {
-    if (index >= 0 && index < SECTIONS.length) {
-      setActiveSection(SECTIONS[index]);
-    }
-  };
-
-  useEffect(() => {
-    const handleWheel = (e) => {
-      e.preventDefault(); // Stop native browser window kinetic scrolling completely
-      if (isLocked.current) return;
-
-      // Ignore micro-movements and trackpad drift
-      if (Math.abs(e.deltaY) < 30) return;
-
-      if (e.deltaY > 0 && currentIndex < SECTIONS.length - 1) {
-        // Swipe Down -> Advance exactly one page forward
-        navigateToSection(currentIndex + 1);
-        triggerSafetyLock();
-      } else if (e.deltaY < 0 && currentIndex > 0) {
-        // Swipe Up -> Return exactly one page back
-        navigateToSection(currentIndex - 1);
-        triggerSafetyLock();
-      }
-    };
-
-    const handleTouchStart = (e) => {
-      touchStartY.current = e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = (e) => {
-      if (isLocked.current) return;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffY = touchStartY.current - touchEndY;
-
-      if (Math.abs(diffY) < 50) return; // Disregard accidental short vibrations
-
-      if (diffY > 0 && currentIndex < SECTIONS.length - 1) {
-        navigateToSection(currentIndex + 1);
-        triggerSafetyLock();
-      } else if (diffY < 0 && currentIndex > 0) {
-        navigateToSection(currentIndex - 1);
-        triggerSafetyLock();
-      }
-    };
-
-    const triggerSafetyLock = () => {
-      isLocked.current = true;
-      // 1000ms fully absorbs continuous laptop trackpad momentum waves
-      setTimeout(() => {
-        isLocked.current = false;
-      }, 1000); 
-    };
-
-    // Attach passive: false to allow e.preventDefault() to execute cleanly
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [currentIndex]);
-
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden flex flex-col justify-between bg-[#061729] selection:bg-[#D9A33B] selection:text-[#061729]">
-      {/* Architectural Atmospheric Lighting Background */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0072CE]/5 rounded-full filter blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#D9A33B]/3 rounded-full filter blur-[150px] pointer-events-none" />
-      
-      <Header activeSection={activeSection} setActiveSection={setActiveSection} />
-      
-      {/* Viewport Frame Container */}
-      <main className="flex-grow flex items-center justify-center w-full px-4 sm:px-8 max-h-[calc(100vh-140px)] mt-20 mb-12">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSection}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="w-full h-full flex items-center justify-center"
-          >
-            <Home activeSection={activeSection} setActiveSection={setActiveSection} />
-          </motion.div>
-        </AnimatePresence>
-      </main>
-
-      <Footer setActiveSection={setActiveSection} />
-    </div>
+    <Router>
+      <ScrollToTop />
+      <div className="min-h-screen flex flex-col bg-[#0B192C] selection:bg-[#D4AF37] selection:text-[#0B192C] font-sans">
+        <Header />
+        
+        <main className="flex-grow w-full pt-20">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        
+        <Footer />
+        
+        {/* Global Floating WhatsApp Integration */}
+        <a 
+          href="https://wa.me/971589925988" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
+          aria-label="Chat on WhatsApp"
+        >
+          <WhatsAppIcon />
+          <span className="absolute -top-12 right-0 bg-[#001F3F] text-white text-xs px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-[#D4AF37]/30 shadow-lg pointer-events-none">
+            Chat with our Advisory Team
+          </span>
+        </a>
+      </div>
+    </Router>
   );
 }

@@ -1,74 +1,72 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
-export default function Footer({ setActiveSection }) {
+export default function Footer() {
   return (
-    <footer className="w-full bg-[#040d18] border-t border-slate-900/40 text-slate-400 text-xs py-6 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main Content Layout Row */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+    <footer className="bg-[#001F3F] border-t border-[#D4AF37]/20 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
-          {/* Brand Identity Column with Actual MAKLOGO.png Asset */}
-          <div className="space-y-2.5 max-w-sm text-left">
-            <div className="flex items-center">
-              {/* Referencing the exact project image asset shown in image_25d3c0.png */}
-              <img 
-                src="/MAKLOGO.png" 
-                alt="MAK Consultant Official Logo" 
-                className="h-10 w-auto object-contain"
-              />
+          {/* Brand Column */}
+          <div className="space-y-6">
+            <div className="flex flex-col border-l-2 border-[#D4AF37] pl-4">
+              <span className="text-lg font-bold tracking-widest text-white">MAK CONSULTANT</span>
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-              Professional accounting, taxation, audit, and business advisory solutions helping businesses navigate modern corporate requirements.
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Your trusted partner for financial clarity, regulatory compliance, and strategic business growth.
             </p>
           </div>
 
-          {/* Quick Links Grouping */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 lg:pt-2">
-            <button 
-              onClick={() => setActiveSection?.('services')} 
-              className="hover:text-white transition-colors focus:outline-none"
-            >
-              Services
-            </button>
-            <button 
-              onClick={() => setActiveSection?.('about')} 
-              className="hover:text-white transition-colors focus:outline-none"
-            >
-              Profile
-            </button>
-            <button 
-              onClick={() => setActiveSection?.('why-us')} 
-              className="hover:text-white transition-colors focus:outline-none"
-            >
-              Values
-            </button>
-            <button 
-              onClick={() => setActiveSection?.('inquire')} 
-              className="hover:text-white transition-colors focus:outline-none"
-            >
-              Inquire
-            </button>
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest mb-6 text-sm">Quick Links</h4>
+            <ul className="space-y-4 text-sm text-slate-400">
+              <li><Link to="/" className="hover:text-[#D4AF37] transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-[#D4AF37] transition-colors">About Us</Link></li>
+              <li><Link to="/services" className="hover:text-[#D4AF37] transition-colors">Our Services</Link></li>
+              <li><Link to="/contact" className="hover:text-[#D4AF37] transition-colors">Contact Us</Link></li>
+            </ul>
           </div>
 
-          {/* Return Header Control & Copyright Stamp */}
-          <div className="text-left lg:text-right space-y-1 lg:pt-2">
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setActiveSection?.('hero');
-              }} 
-              className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-widest text-amber-500 hover:text-amber-400 transition-colors focus:outline-none"
-            >
-              Return Overview <span className="text-xs font-sans">↗</span>
-            </button>
-            <p className="text-[10px] text-slate-600 block tracking-wide font-medium">
-              &copy; {new Date().getFullYear()} MAK Consultant. All Rights Reserved.
-            </p>
+          {/* Services Links */}
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest mb-6 text-sm">Our Services</h4>
+            <ul className="space-y-4 text-sm text-slate-400">
+              <li><Link to="/services" className="hover:text-[#D4AF37] transition-colors">Accounting & Bookkeeping</Link></li>
+              <li><Link to="/services" className="hover:text-[#D4AF37] transition-colors">Corporate Tax & VAT</Link></li>
+              <li><Link to="/services" className="hover:text-[#D4AF37] transition-colors">Audit & Assurance</Link></li>
+              <li><Link to="/services" className="hover:text-[#D4AF37] transition-colors">Business Setup & Advisory</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact Details */}
+          <div>
+            <h4 className="text-white font-bold uppercase tracking-widest mb-6 text-sm">Reach Us</h4>
+            <ul className="space-y-4 text-sm text-slate-400">
+              <li className="flex items-start gap-3">
+                <Phone size={16} className="text-[#D4AF37] mt-0.5 shrink-0" />
+                <a href="tel:+971589925988" className="hover:text-[#D4AF37] transition-colors">+971 58 992 5988</a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail size={16} className="text-[#D4AF37] mt-0.5 shrink-0" />
+                <a href="mailto:info@makconsultantuae.com" className="hover:text-[#D4AF37] transition-colors break-all">info@makconsultantuae.com</a>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="text-[#D4AF37] mt-0.5 shrink-0" />
+                <span>United Arab Emirates</span>
+              </li>
+            </ul>
           </div>
 
         </div>
 
+        {/* Copyright Bar */}
+        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-500 uppercase tracking-widest text-center md:text-left">
+            &copy; {new Date().getFullYear()} MAK Consultant. All Rights Reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
