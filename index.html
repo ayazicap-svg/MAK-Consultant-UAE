@@ -1,21 +1,30 @@
-<!-- Inside your index.html <head> -->
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- 1. The Title Tag (keep this concise) -->
-  <title>MAK Consultant | Professional Corporate Solutions</title>
-  
-  <!-- 2. Open Graph Site Name (helps Facebook/LinkedIn/Google) -->
-  <meta property="og:site_name" content="MAK Consultant" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- 1. The Title Tag -->
+    <title>MAK Consultant | Professional Corporate Solutions</title>
+    
+    <!-- 2. Open Graph Site Name -->
+    <meta property="og:site_name" content="MAK Consultant" />
 
-  <!-- 3. JSON-LD Structured Data (The most important step for Google) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "MAK Consultant",
-    "url": "https://makconsultantuae.com/"
-  }
-  </script>
-</head>
+    <!-- 3. JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MAK Consultant",
+      "url": "https://makconsultantuae.com/"
+    }
+    </script>
+  </head>
+  <body>
+    <!-- This is the container where your React app attaches -->
+    <div id="root"></div>
+    
+    <!-- This is the critical script that starts your app -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
